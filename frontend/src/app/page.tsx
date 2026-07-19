@@ -21,7 +21,7 @@ const SensorHeatmap = dynamic(() => import('@/components/visualizations/ECharts/
   ssr: false
 });
 
-import { List } from 'react-window';
+import { List, ListChildComponentProps } from 'react-window';
 
 const AlertFeed = () => {
   const alerts = useDashboardStore(state => state.alerts);
@@ -30,10 +30,10 @@ const AlertFeed = () => {
     return <p className="text-slate-500 text-sm text-center py-4">No recent alerts</p>;
   }
 
-  const Row = ({ index, style }: { index: number, style: React.CSSProperties }) => {
+  const Row = ({ index, style }: ListChildComponentProps) => {
     const alert = alerts[index];
     return (
-      <div style={{ ...style, height: style.height as number - 8 }} className={`p-3 border-l-4 rounded shadow-sm bg-slate-900/80 mb-2 ${
+      <div style={{ ...style, height: (style.height as number) - 8 }} className={`p-3 border-l-4 rounded shadow-sm bg-slate-900/80 mb-2 ${
         alert.severity === 'critical' ? 'border-red-500' : 'border-amber-500'
       }`}>
         <div className="flex justify-between items-start">

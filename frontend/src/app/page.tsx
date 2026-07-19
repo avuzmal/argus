@@ -21,7 +21,7 @@ const SensorHeatmap = dynamic(() => import('@/components/visualizations/ECharts/
   ssr: false
 });
 
-import { List, ListChildComponentProps } from 'react-window';
+import { List, RowComponentProps } from 'react-window';
 
 const AlertFeed = () => {
   const alerts = useDashboardStore(state => state.alerts);
@@ -30,7 +30,7 @@ const AlertFeed = () => {
     return <p className="text-slate-500 text-sm text-center py-4">No recent alerts</p>;
   }
 
-  const Row = ({ index, style }: ListChildComponentProps) => {
+  const Row = ({ index, style }: RowComponentProps) => {
     const alert = alerts[index];
     return (
       <div style={{ ...style, height: (style.height as number) - 8 }} className={`p-3 border-l-4 rounded shadow-sm bg-slate-900/80 mb-2 ${
@@ -50,14 +50,13 @@ const AlertFeed = () => {
   return (
     <div className="w-full h-full min-h-[350px]">
       <List
-        height={400}
-        itemCount={alerts.length}
-        itemSize={80}
-        width="100%"
+        style={{ height: 400, width: "100%" }}
+        rowCount={alerts.length}
+        rowHeight={80}
+        rowComponent={Row}
+        rowProps={{}}
         className="custom-scrollbar pr-2"
-      >
-        {Row}
-      </List>
+      />
     </div>
   );
 };

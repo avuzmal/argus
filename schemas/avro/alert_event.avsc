@@ -1,0 +1,37 @@
+{
+  "namespace": "com.argus.alerts",
+  "type": "record",
+  "name": "AlertEvent",
+  "fields": [
+    {
+      "name": "alert_id",
+      "type": "string",
+      "doc": "Unique identifier for the alert"
+    },
+    {
+      "name": "sensor_id",
+      "type": "string",
+      "doc": "ID of the sensor that triggered the alert"
+    },
+    {
+      "name": "severity",
+      "type": "string",
+      "doc": "Severity level (e.g., INFO, WARNING, CRITICAL)"
+    },
+    {
+      "name": "score",
+      "type": "double",
+      "doc": "Anomaly score between -1 and 1"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "doc": "ISO 8601 formatted timestamp of the alert"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "doc": "Human readable alert message"
+    }
+  ]
+}

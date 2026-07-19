@@ -1,0 +1,33 @@
+{
+  "namespace": "com.argus.sensors",
+  "type": "record",
+  "name": "SensorReading",
+  "fields": [
+    {
+      "name": "sensor_id",
+      "type": "string",
+      "doc": "Unique identifier for the sensor"
+    },
+    {
+      "name": "sensor_type",
+      "type": "string",
+      "doc": "Type of the sensor (e.g., TEMP, PRESSURE, VIBRATION)"
+    },
+    {
+      "name": "value",
+      "type": "double",
+      "doc": "The numerical reading from the sensor"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "doc": "ISO 8601 formatted timestamp of the reading"
+    },
+    {
+      "name": "metadata",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "Optional metadata key-value pairs"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import { useDashboardStore } from '../store/dashboardStore';
 export function useWebSocket(url: string) {
   const [isConnected, setIsConnected] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const addAlert = useDashboardStore(state => state.addAlert);
   const updateMetrics = useDashboardStore(state => state.updateMetrics);
 

@@ -4,12 +4,7 @@ import { useEffect, useState } from "react";
 import { Activity, AlertTriangle, Cpu, ActivitySquare } from "lucide-react";
 import { formatNumber } from "@/lib/utils";
 
-// Dummy components that we would flesh out later
-const StreamingLineChart = () => (
-  <div className="h-64 w-full flex items-center justify-center border border-slate-800 rounded-lg bg-slate-900/50">
-    <p className="text-slate-500">Streaming D3.js Line Chart (Connecting...)</p>
-  </div>
-);
+import StreamingLineChart from "@/components/visualizations/D3Components/StreamingLineChart";
 
 const AlertFeed = () => (
   <div className="flex flex-col gap-3">
@@ -115,7 +110,9 @@ export default function Home() {
                 <span className="px-2 py-1 text-xs bg-slate-800 rounded text-slate-300 cursor-pointer hover:bg-slate-700">VIBRATION</span>
               </div>
             </div>
-            <StreamingLineChart />
+            <div className="h-64 w-full">
+              <StreamingLineChart />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

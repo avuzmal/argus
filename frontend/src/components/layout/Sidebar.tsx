@@ -2,10 +2,13 @@
 
 import { LayoutDashboard, Server, BarChart3, BellRing, Map, Settings, HelpCircle } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   const menuItems = [
-    { icon: <LayoutDashboard size={20} />, label: "Dashboard", href: "/", active: true },
+    { icon: <LayoutDashboard size={20} />, label: "Dashboard", href: "/" },
     { icon: <Server size={20} />, label: "Sensors", href: "/sensors" },
     { icon: <BarChart3 size={20} />, label: "Analytics", href: "/analytics" },
     { icon: <BellRing size={20} />, label: "Alerts", href: "/alerts" },
@@ -27,20 +30,23 @@ export default function Sidebar() {
 
       <div className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
         <div className="text-xs font-semibold text-slate-500 mb-4 px-2 uppercase tracking-wider">Main Menu</div>
-        {menuItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-              item.active 
-                ? 'bg-blue-500/10 text-blue-400 font-medium' 
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-            }`}
-          >
-            {item.icon}
-            {item.label}
-          </Link>
-        ))}
+        {menuItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
+                isActive 
+                  ? 'bg-blue-500/10 text-blue-400 font-medium' 
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              }`}
+            >
+              {item.icon}
+              {item.label}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="p-4 border-t border-slate-800">

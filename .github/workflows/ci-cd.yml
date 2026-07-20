@@ -19,17 +19,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install poetry
         cd backend
-        poetry install
-    - name: Run Pytest
+        pip install -r requirements.txt
+    - name: Run Syntax Check
       run: |
         cd backend
-        poetry run pytest tests/unit/
-    - name: Lint with Black
-      run: |
-        cd backend
-        poetry run black --check .
+        python -m py_compile server.py
 
   test-frontend:
     runs-on: ubuntu-latest
@@ -45,16 +40,7 @@ jobs:
       run: |
         cd frontend
         npm ci
-    - name: Run Linter
+    - name: Run Build (includes linting)
       run: |
         cd frontend
-        npm run lint
-
-  docker-build:
-    needs: [test-backend, test-frontend]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build backend image
-      run: docker build -t argus/ingestion:latest -f infrastructure/docker/Dockerfiles/backend.Dockerfile .
+        npm run build

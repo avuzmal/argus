@@ -1,65 +1,106 @@
-# Argus 👁️ 
-**The All-Seeing Eye of Real-Time Data Intelligence**
+<div align="center">
+  <img src=".github/assets/hero.png" alt="Argus Dashboard" width="100%" style="border-radius: 12px; margin-bottom: 20px;">
 
-Argus is an enterprise-grade, real-time data pipeline orchestrator designed for manufacturing and IoT edge environments (like Nexus Manufacturing). It combines sub-millisecond stream processing with real-time machine learning (Isolation Forest / LSTM) to detect anomalies in high-throughput sensor data.
+  <h1>👁️ ARGUS</h1>
+  <p><b>Enterprise Real-Time Anomaly Detection & Sensor Telemetry Platform</b></p>
+  
+  <p>
+    <a href="https://argus-template.vercel.app"><img src="https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js">
+    <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  </p>
+</div>
 
-![Argus Dashboard](https://raw.githubusercontent.com/avuzmal/argus/main/docs/dashboard.png)
+---
 
-## 🚀 Live Demo
-**[https://argus.vercel.app](https://argus-mauve.vercel.app)** *(Auto-deploying via Vercel)*
+## ⚡ Overview
+
+**Argus** is a highly scalable, real-time telemetry dashboard designed for monitoring massive arrays of factory floor sensors. It leverages high-performance WebSockets to ingest thousands of messages per second, instantly processing anomaly detection algorithms to highlight critical failures before they cascade.
+
+Argus brings dark-mode cyberpunk aesthetics into the enterprise domain without sacrificing usability or data clarity.
+
+## 🚀 Key Features
+
+- **🔴 Real-time Anomaly Detection:** Machine learning thresholds process incoming streams and instantly categorize anomalies by severity (Critical, High, Medium, Low).
+- **🗺️ Geospatial Topological Mapping:** A 2D overlay of the factory floor (`Sector Beta-4`) that actively pulses when localized anomalies occur.
+- **📊 Advanced Analytics:** ECharts integrations for real-time throughput tracking (messages/sec) and zonal anomaly distributions.
+- **⚙️ Global State Persistence:** `Zustand` state management keeps your customized settings (Simulator Speed, Tolerance Thresholds) alive across sessions.
+- **⚡ Zero-Latency WebSockets:** Powered by a backend `FastAPI` Python cluster capable of blasting mock or real sensor data seamlessly.
 
 ## 🏗️ Architecture
 
-1. **Ingestion (FastAPI)**: Receives high-throughput sensor telemetry. Enforces Avro schema validation and rate-limiting via Redis.
-2. **Message Broker (Kafka KRaft)**: Buffers messages for robust, distributed processing.
-3. **Stream Processing (Bytewax)**: Stateful stream processing engine that evaluates data points against pre-trained scikit-learn/TensorFlow models in real-time.
-4. **Historical Storage (TimescaleDB / PostgreSQL)**: Efficiently stores time-series data for historical analytics.
-5. **Real-time Gateway (FastAPI WebSockets)**: Broadcasts detected anomalies directly to the connected web clients.
-6. **Frontend Dashboard (Next.js 14 App Router)**: A glassmorphism, highly responsive dashboard using D3.js and ECharts for high-performance streaming visualizations.
-
-## ✨ Features
-- **Real-Time Data Streaming:** Live charts powered by D3.js pushing 60fps with WebGL/Canvas fallbacks via ECharts.
-- **Machine Learning Integration:** On-the-fly anomaly detection scoring.
-- **Demo Simulator Mode:** Client-side fallback data generation for seamless presentation when the backend is disconnected.
-- **Responsive Layout:** Sidebar navigation, responsive data grid, and floating glass-pane components.
-- **Enterprise Controls:** Simulator controls, time range picker, JSON/PNG export capabilities.
-
-## 🛠️ Quick Start (Local Development)
-
-### Prerequisites
-- Docker & Docker Compose
-- Python 3.11+ (Poetry)
-- Node.js 20+
-
-### Run the Pipeline
-We have provided an automated PowerShell orchestrator to launch all microservices in separate windows for easy log monitoring.
-
-```bash
-git clone https://github.com/avuzmal/argus.git
-cd argus
-
-# Launch the entire stack (Infrastructure, Frontend, APIs, Stream Processors)
-.\start-argus.ps1
+```mermaid
+graph LR
+    subgraph Edge Layer
+        S1[Sensor Array Alpha] --> |Telemetry| Kafka[Event Bus]
+        S2[Sensor Array Beta] --> |Telemetry| Kafka
+    end
+    
+    subgraph Argus Backend
+        Kafka --> FastAPI[FastAPI Cluster]
+        ML[Anomaly ML Engine] -.-> |Scoring| FastAPI
+    end
+    
+    subgraph Argus Frontend
+        FastAPI -->|WebSocket| State[Zustand Store]
+        State --> UI1[Geospatial Map]
+        State --> UI2[ECharts Analytics]
+        State --> UI3[Alert Matrix]
+    end
 ```
 
-Or run services manually:
-1. `docker-compose up -d`
-2. `cd backend && poetry install && poetry run uvicorn api_gateway.main:app --port 8001`
-3. `cd frontend && npm install && npm run dev`
+## 🛠️ Tech Stack
 
-## 📡 API Documentation
+### Frontend Core
+- **Next.js 16 (App Router)** - React Framework
+- **Tailwind CSS v4** - Styling & Animations
+- **Zustand** - Global State Management
+- **ECharts (echarts-for-react)** - Heavy Data Visualization
+- **Lucide React** - Iconography
 
-### REST Endpoints (API Gateway - Port 8001)
-- `GET /api/v1/sensors` - List all monitored sensors.
-- `GET /api/v1/sensors/{id}/history` - Retrieve historical time-series data.
-- `GET /api/v1/alerts` - List recent anomalies.
-- `GET /api/v1/metrics` - Retrieve Prometheus-compatible system metrics.
+### Backend Core
+- **Python 3** - Runtime
+- **FastAPI** - High performance WebSocket server
 
-### WebSocket 
-- `ws://localhost:8001/ws/dashboard` - Subscribe to the live feed of anomalies and system throughput.
+## 🏁 Getting Started
 
-## 🤝 Contributing
-Please read `CONTRIBUTING.md` for guidelines on submitting pull requests.
+### 1. Start the Backend Simulation
 
-## 📄 License
-MIT License
+```bash
+cd backend
+# Create a virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the WebSocket Server
+python server.py
+```
+*The backend will automatically start broadcasting at `ws://localhost:8000/ws`.*
+
+### 2. Start the Frontend Application
+
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the Next.js development server
+npm run dev
+```
+*Open [http://localhost:3005](http://localhost:3005) in your browser to see the dashboard.*
+
+## 🎨 Configuration
+
+Settings can be dynamically adjusted in the **Settings (/settings)** tab:
+- **Simulator Speed:** Controls the volume of mock data emitted if running in completely local frontend simulation mode.
+- **Anomaly Threshold:** Sets the strictness of the ML alert bounds. Lower values flag more data points as critical anomalies.
+- **Backend Connection:** Directly override the target WebSocket URL if running the Python cluster on a remote server.
+
+## 📜 License
+MIT License. See `LICENSE` for more information.

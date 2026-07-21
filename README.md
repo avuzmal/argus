@@ -1,6 +1,4 @@
 <div align="center">
-  <img src=".github/assets/hero.png" alt="Argus Dashboard" width="100%" style="border-radius: 12px; margin-bottom: 20px;">
-
   <h1>👁️ ARGUS</h1>
   <p><b>Enterprise Real-Time Anomaly Detection & Sensor Telemetry Platform</b></p>
   

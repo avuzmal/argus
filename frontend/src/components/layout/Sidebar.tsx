@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Server, BarChart3, BellRing, Map, Settings, HelpCircle } from "lucide-react";
+import { LayoutDashboard, Server, BarChart3, BellRing, Map, Settings, HelpCircle, Bot } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,6 +9,7 @@ export default function Sidebar() {
 
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: "Dashboard", href: "/" },
+    { icon: <Bot size={20} />, label: "Agent Demo", href: "/multi-agent" },
     { icon: <Server size={20} />, label: "Sensors", href: "/sensors" },
     { icon: <BarChart3 size={20} />, label: "Analytics", href: "/analytics" },
     { icon: <BellRing size={20} />, label: "Alerts", href: "/alerts" },
